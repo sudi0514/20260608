@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finger Heart Shooter - 手指辨識射擊遊戲</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="libraries/p5.min.js"></script>
+    <script src="libraries/p5.sound.min.js"></script>
+</head>
+<body>
+    <div id="p5-container"></div>
+    <div id="ui-overlay">
+        <div id="score-display" class="ui-panel">
+            <div class="score-item">
+                <span class="label">分數:</span>
+                <span id="score-value" class="value">0</span>
+            </div>
+            <div class="score-item">
+                <span class="label">高分:</span>
+                <span id="highscore-value" class="value">0</span>
+            </div>
+            <div class="score-item">
+                <span class="label">時間:</span>
+                <span id="time-value" class="value">60s</span>
+            </div>
+            <div class="score-item" id="combo-display" style="display: none;">
+                <span class="label">連擊:</span>
+                <span id="combo-value" class="value">x0</span>
+            </div>
+        </div>
+
+        <div id="gesture-display" class="ui-panel">
+            <div class="gesture-item">
+                <span>✌️ Pinch: <span id="pinch-status">OFF</span></span>
+            </div>
+            <div class="gesture-item">
+                <span>👍 Thumbs Up: <span id="thumbsup-status">OFF</span></span>
+            </div>
+            <div class="gesture-item">
+                <span>✋ Palm Open: <span id="palm-status">OFF</span></span>
+            </div>
+        </div>
+
+        <div id="achievement-notification" class="achievement-notify" style="display: none;">
+            <div class="achievement-content">
+                <span id="achievement-icon" class="achievement-icon"></span>
+                <div class="achievement-text">
+                    <div class="achievement-title">成就解鎖！</div>
+                    <div id="achievement-name" class="achievement-name"></div>
+                    <div id="achievement-desc" class="achievement-desc"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="buttons-panel" class="ui-panel buttons-panel">
+            <button id="achievements-btn" class="ui-button">成就 (0/8)</button>
+            <button id="mute-btn" class="ui-button">🔊 音效</button>
+        </div>
+    </div>
+
+    <div id="achievements-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>成就系統</h2>
+                <button class="close-btn" onclick="closeAchievementsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="achievements-grid" class="achievements-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="instructions-modal" class="modal" style="display: flex;">
+        <div class="modal-content instructions-modal">
+            <h1>Finger Heart Shooter</h1>
+            <div class="instructions-content">
+                <p>🖐️ 用食指瞄準</p>
+                <p>✌️ 食指 + 中指捏合射擊</p>
+                <p>👍 豎起大拇指開始遊戲</p>
+            </div>
+            <div class="difficulty-selector">
+                <p>選擇難度：</p>
+                <div class="difficulty-buttons">
+                    <button class="difficulty-btn" data-difficulty="easy">簡單</button>
+                    <button class="difficulty-btn active" data-difficulty="normal">中等</button>
+                    <button class="difficulty-btn" data-difficulty="hard">困難</button>
+                </div>
+            </div>
+            <button class="start-btn" onclick="startGame()">開始遊戲</button>
+        </div>
+    </div>
+
+    <div id="gameover-modal" class="modal" style="display: none;">
+        <div class="modal-content gameover-modal">
+            <h1>遊戲結束</h1>
+            <div class="gameover-stats">
+                <div class="stat-item">
+                    <span class="stat-label">最終分數:</span>
+                    <span id="final-score" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">最高連擊:</span>
+                    <span id="final-combo" class="stat-value">x0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">歷史高分:</span>
+                    <span id="final-highscore" class="stat-value">0</span>
+                </div>
+            </div>
+            <button class="restart-btn" onclick="restartGame()">重新開始</button>
+        </div>
+    </div>
+
+    <script src="jsconfig.json"></script>
+    <script src="sketch.js"></script>
+</body>
+</html>
